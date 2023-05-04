@@ -1,0 +1,26 @@
+베이스라인 모델/이전 월의 고객 구매액을 계산 후 이를 예측값으로 사용해서 베이스라인 모델 구현
+Library import 
+def generate_label():
+def print_score():
+data = pd.read.csv()
+data.info()
+data.isna().sum()
+data.describe(include=’all’)
+def baseline_no_ml
+label_2011_11=generate_label(data,’2011-11’)[‘label’]
+sns.countplot(label_2011_11);
+label_2011_11.value_counts()
+test_preds_2011_11=baseline_no_ml(data,’2011-11’)
+sns.distplot(test_preds_2011_11)
+plt.show()
+output_dir = ‘../’
+os.makedirs(output_dir,exist_ok=True)
+test_preds.to_csv(os.path.join(output_dir,’output.csv’),index=False)
+
+EDA란 
+Exploratory data analysis, 탐색적 데이터 분석. 데이터를 탐색하고 가설을 세우고 증명하는 과정.
+데이터의 특징과 내재하는 구조적 관계를 알아내기 위해 시각화나 통계적 방법을 통해 다양한 각도에서 관찰,이해하는 과정
+시작-> 보통 개별 변수 분포, 변수간의 분포관계를 보는 것이 좋다.
+이를 위해 히스토그램,카운트플롯,correlation 히트맵 등 사용
+1)어떤 가설을 세우고 이를 검증해 볼 수 있을까?
+2)어떤 직관으로 EDA를 시작하면 좋을까?
