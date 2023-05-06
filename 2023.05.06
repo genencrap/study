@@ -1,0 +1,39 @@
+데이터 전처리 : 모델에 데이터를 입력하기 위해 데이터를 처리하는 과정
+Eda의 목적,사용모델 에 따라 하는 방법이 다름
+연속형 변수 처리방법
+scaling : 데이터의 단위 혹은 분포를 변경. 선형기반의 모델을 사용할 경우 필수적
+-> scale 만 바꾸는 경우, scale과 분포를 바꾸는 경우로 나눌 수 있다.
+scaling종류
+1. min max scaling : 현재값에서 minimum값을 빼고 max와min값의 차이로 나눔
+2.standard scaling: 현재 값에서 평균 값을 빼고, 표준편차로 나눔
+3. robust scaling: 현재 값에서 중위값을 빼고 iqr로 나눔
+Scaling + distribution 종류
+1. log transformation
+왼쪽으로 변수의 분포가 너무 치우쳐져있는 경우 log transformation을 통해 정규분포에 가까운 분포로 만들 수 있다.
+2.Quantile transformation
+값을 uniform하게 변화시키거나 정규 분포로 변환시켜 준다.
+Log transformation과 가장 큰 차이점은 어떠한 분포가 들어와도 정규 분포 혹은 uniform한 분포로 변환
+분표 변환의 장점
+Transformation을 사용함으로 인해 reature와 target과의 관계를 더욱 직접적으로 변환할 수 있다.
+Bining : 연속형 변수를 범주형 변수로 변형시키는 방법. 여러개의 봉우리가 있는 데이터는 중간중간 유의미하지 않은 정보들이 있을 수 있고, 이런 경우 overfitting이 발생할 수 있다. 이를 방지하기 위해 연속형 변수를 묶어 범주형 변수로 바꿀 수 있다.
+범주형 데이터의 전처리
+범주형 변수는 보통 문자열로 되어 있어 머신러닝 모델의 입력 데이터로 직접 사용할 수 없으며 수치형 변수로 인코딩해주는 과정이 필요하게 된다. 인코딩방법은 one hot encording, label encoding, frequency, target encording,embedding 등이 있다.
+1. one hot encording
+변수를 1과 0으로 나누는 방법. 존재하면 1, 아니면 0
+장: 변수의 의미가 명확
+단: 변수의 종류가 많아질수록 개수가 종류만큼 늘어나고 parse한 행렬이 만들어짐(차원의 저주)
+2.label encording
+컬럼 수는 한개로 유지, 각각의 종이 다른 값을 가지게 의미를 부여ex)개:1, 고양이:2, 고양이,개:3
+단점:숫자의 순서가 특징으로 여겨질 수 있음
+3.frequency encording
+해당 변수의 값이 몇 번 등장하는지 빈도수를 측정해 변수의 값으로 사용하는 방식
+장:값에 의미가 있는 범주형 데이터로 만들 수 있다.
+단:다른 종류의 변수가 같은 target변수값을 가질 수 있다.
+4.target encording
+각각의 변수 종류가 가지는 target변수의 평균으로 인코딩
+단:다른 종류가 같은 target encording을 갖게 될 수 있다.
+5.embedding
+Entity embedding이라고도 하는 이 방법은 word2vec과 같은 모델을 이용해 text데이터를 더 낮은 차원으로 임베딩 하는 방법
+
+1)사용할 수 있는 전처리방법에는 어떤게 있을까?
+2)단점을 최소화하면서 사용할 수 있는 전처리 방법은 어떤게 있을까?
