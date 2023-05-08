@@ -1,0 +1,22 @@
+Underfitting&overfitting
+Underfitting->데이터를 잘 설명하지 못함
+Overfitting->데이터를 과도하게 설명
+
+Early stop point
+Training data를 train set과 validation set으로 나눈 뒤, 
+trainset으로 학습을 진행하며 validation set에서의 성능을 지속적으로 관찰. 
+Validation error가 지속적으로 증가하는 지점에서 모델 학습을 중단시킨다. 딥러닝에서의 방법과 유사.
+Parameter norm penalty
+정형데이터에 적용. Penalty를 적절하게 적용하면 적절히 fitting될 수 있다.
+Data augmentation
+딥러닝으로 이미지데이터 문제 풀때 많이 씀. 원본 이미지를 회전,반전,확대,축소 등 방법을 통해 데이터 개수를 늘리는 방법. 
+의도적으로 데이터를 증강시커 모델에게 다양한 데이터로 학습할 수 있게 하는 방법. 딥러닝에서 사용하는 것과는 다름.
+SMOTE
+정형데이터에서는 SMOTE기법으로 data augmentaion과 같은 효과를 만들어냄. 
+Imbalanced된 데이터에서 minority한 data를 활용해 사이사이 데이터를 생성하는 방식.
+이와 같이 정형 데이터에서 역시 데이터 증강을 통해 overfitting을 방지할 수 있다.
+Dropout
+모든 feature와 node를 사용하는 대신, 일부만 사용하여 모델을 학습하는 방법. 
+정형데이터분석에서는 column sample by tree방법이 있다.
+Column sample by tree
+tree모델을 만들때 테이블에 존재하는 모든 feature(column)을 사용하는 것이 아닌, fosejeagorp 샘플링해서 구현 할 수 있다.
