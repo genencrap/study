@@ -1,0 +1,15 @@
+-컬럼 제거
+del data[“column”]
+-데이터 두개 합치기
+data = pd.concat((data,sub),axis=0)
+-결측치 비율 계산
+Data.isna().sum()/data.shape[0]
+-Missingno 라이브러리로 결측치 데이터 시각화하기
+Import missingno as msno
+Msno.bar(data)
+-연도데이터를 문자열에서 분리하기
+data[‘date’] = data[‘date’].apply(lambda x : str(x[:6]))
+-이산데이터의 경우에도 곡선으로 전체 분포를 확인할 수 있도록 하는 시각화 함수 sns.kdeplot
+Sns.kdeplot(data=data[columns[count]],ax=ax[row][col])
+-치우친 컬럼들을 no.log1p()를 활용해서 로그 변환하기->치우쳐짐이 줄어듬
+data[c] = np.log1p(data[c])
