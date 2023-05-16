@@ -1,0 +1,242 @@
+-2023.05.16-
+-What is validation strategy
+Test dataset = 최대한 전체대이터를 표현해야함. 지속적으로 바꾸는것은 안좋음
+Validation dataset = 모델의 성능을 파악하기 위해 선정한 데이터 , test와 유사하게 하면 좋음. 전체데이터와 유사하면 좋음
+Train = 학습용. 데이터의 품질에 따라 noise 데이터를 포함할까 말까는 고민해볼 수 있다.
+
+-Hold out validation
+하나의 train,validation 데이터셋을 가짐. Imbalanced한 데이터가 특정 set에 몰릴 수 있으니 글래스 비율을 고려해야함
+validation나누는 방법
+random sampling = 제대로 표현 못할 수 있어서 별로
+stratified split = 카테고리 비율별로 나누기 = 많이씀 보통 8:2로 많이
+
+-cross validatoin
+train과 validation set을 여러 개 구성하는 방법.
+Kfold 방식 = 상황별로 train과 validation 을 다르게 구성하여 상황마다 각 모델을 학습시키고 ,각자 다른 train과 validatoin을 거친 모델들을 모두 사용해 test set을 예측하는 방식.
+애도 validation나누는거 위에 2개 있음
+Stratified k-fold = stratified방식을 kfold에 적용한것
+Group k fold 같은 그룹이 동일한 fold에 안들어가게 나눔->그룹은 fold개수보다 큼
+Time series split = 시계열데이터. 순차로. 미래의 데이터로 과거를 예측하는 것을 방지. 앞으로 갈수록 데이터가 적어짐
+Baseline stratified k fold
+
+-reproducibility
+실행할때마다 샘플링이 다르게 될 수 있다->성능이 매번 다르다.
+=> 정확한 성능 측정을 위해 랜덤 기반 작업들을 고정시켜 줄 필요가 있다.
+이렇게 모델의 성능을 똑같이 복원할 수 있는 것을 reproducibility (재현성)이라 하며 이를 위해 seed를 고정 사용
+
+-Machine learning workflow
+1.데이터에서 필요한 데이터 추출
+2. 전처리 실행, feature scaling 및 feature selecting을 한 후
+3. machine learning algorithm 구현해 modeling 및 train진행, 후에 test set에 대해 성능 평가진행
+모델성능 향상시키는 과정에서 2번과 3번 과정을 반복할 수 있다.
+데이터 추출 및 전처리 과정이 모델 성능에 있어 가장 중요한 부분이 될 수 있다.
+
+트리 모델
+1.what is tree model
+1.1 트리 모델의 기초 의사 결정 나무
+트리모델이란 트리구조를 활용해 feature값을 특정 기준으로 분류해 목적에 맞는 의사결정을 만드는 모델. 가장 기본이 되는 모델이 의사결정나무(decision tree)로 볼 수 있다. 하나의 질문으로 yes,no로 decision을 내려서 분류한다.
+
+1.2 트리 모델의 발전
+Decision tree, random forest, adaboost, GBM, XGBoost,lightGBM,catboost 등 다양한 트리기반 모델이 있다.
+1.3 bagging & boosting
+Bagging = 데이터셋을 랜덤하게 샘플링하여 트리를 만들어 나가며, 생성한 트리의 의사 결정들을 취합해 하나의 의사결정으로 만드는 방식. Random forest가 대표적인 예.
+Bootstrap = Data를 여러번 sampling
+Aggregation = 종합(ensemble)
+Bagging = Bootstrap + Aggregatoin
+Boosting = 초기에 랜덤하게 선택된 데이터셋을 이용하여 하나의 틀을 만들고 잘 맞추지 못한 데이터들에 weight를 부여하여 다음 트리를 만들 때 영향을 줘 다음번에는 잘 맞출 수 있게 하는 방법.
+	Bagging	Boosting
+tree생성 방법	병렬모델(각 모델이 서로 연관 없음)	순차적 모델(이전 tree의 오류 기반으로)
+특징	다양한 tree생성	정밀한 tree생성
+
+1.4 lightGBM, XGBoost, CatBoost
+-> 부스팅 트리 모델 중 대표적인 3가지.
+Xgboost와catboost는 tree를 생성할때 균형적인(balanced)구조로 생성을 하는 반면, lightgbm은 한쪽에 가지를 지속적으로 생성한 다음 다른 가지가 생성하는 구조로 성장한다. Tree가 성장하는 방식을 제한하지 않는다면 두 방법 모두 tree 모델이 크게 다르지 않을 수 있다.
+2.tree model with hyper-parameter
+Learing rate 는 gradient descent의 learning rate와 같은 개념
+Learning rate를 너무 적게 설정하면 수렴 속도가 너무 느려지고 너무 크게 설정하면 발산할 수 있다. 그래서 적당한 값을 찾아 사용해야 모델이 제대로 학습할 수 있다.
+2.1 hyper-parameter 살펴보기
+Learning rate외에 tree model에서는 트리의 깊이 depth와 잎사귀 number of leaves를 설정할 수 있다. 트리를 너무 깊게 만들거나 잎사귀를 제한없이 모두 사용하게 된다면 overfitting의 위험이 있다.
+Column & Row sampling Ratio = 전체 feature 중 랜덤하게 일부만 사용해서 tree를 만들기 때문에 overfitting이 발생할 확률을 낮추고 다양한 feature의 조합으로 여러가지 트리를 만드는 효과를 낼 수 있다.
+모델마다 hyper-parameter에 대해 가지는 변수명이 다름
+
+2.2 hyper-parameter 실습
+Category 변수 다루기
+Lightgbm과 catboost는 pandas의 category데이터 타입 가능
+Xgboost는 오직 numeric데이터 타입만 가능. Xgboost 전처리 필요
+//lightgbm
+For c in X.columns:
+    If X[c].dtype ==’object’:
+        X[[c]] = X[[c]].astype(‘category’)
+
+3 baseline code(tree model train) 살펴보기
+
+피처 엔지니어링
+1.panddas group by aggregation 을 이용한 feature engineering
+Positive Skew =왼쪽으로 쏠려있음
+Negative skew 오른쪽으로 쏠려 있음
+Label 별 분포가 확연하게 다름 = 모델이 예측할때 분류하기 쉽다 = 좋은 피처다.
+피터 엔지니어링이란 원본 데이터로부터 도메인 지식 등을 바탕으로 문제를 해결하는 데 도움이 되는 피터를 생성, 변환하고 이를 머신러닝 모델에 적합한 형식으로 변환하는 작업.
+딥러닝은 모델의 구조를 통해 데이터의 피처를 모델이 스스로 추출하지만 이와는 다르게 일반 머신러닝 알고리즘은 피처를 스스로 추출할 수 없기 때문에 사람이 직접 데이터를 이해해서 피처를 만드는 피처 엔지니어링 과정이 필요. 양질의 데이터가 제공 될 경우 머신러닝 성능의 80~90%는 피처 엔지니어링을 통해 결정된다.
+집계함수 = 입력이 여러개의 row, 출력이 하나인 결과 ex) count, avg, max,min 등
+
+2.cross validation을 이용한 out of fold예측
+모델의 성능은 cross validation out of fold방식으로 진행. Out of fold는 fold마다 학습한 모델로 테스트 데이터를 예측하고, 이를 평균 앙상블 하여 최종 예측값으로 사용하는 방법
+검증에서 사용하는 데이터 세트에도 bias가 존재하기 때문에 bias의 영향을 줄이기 위해 여러개의 폴드를 사용해 검증
+
+
+3.lightgbm early stopping적용
+Early stopping 
+반복학습이 가능한 머신러닝 모델에서 검증 성능 측정을 통해 검증 성능이 가장 최적이라 판단되는 지점에서 학습을 조기종료 하는 방법.
+Lightgbm early stopping
+정형 데이터에서 자주 사용하는 lightgbm 모델에는 early stopping을 쉽게 적용할 수 있다.
+Lightgbm을 사용할 때 몇 개의 트리를 만들지 n_estimators하이퍼파라미터로 설정하고 이 개수만큼 트리를 만들지만, 설정한 트리 개수가 최적의 값이라고 볼 수 없다. 더 큰 값에서 성능이 좋은 모델이 존재할 수 있기 때문이다.
+Early stopping을 적용한다면 이러한 문제를 n_estimators값을 크게 설정함으로써 쉽게 해결할 수 있다. 적용한다면 모델은 트리를 추가할 때마다 검증 데이터 성능을 측정하고 성능이 좋아지지 않는 어느 순간(early_stoping_rounds값 이상 연속으로 성능이 좋아지지 않으면)에 더 이상 트리를 만들지 않고 가장 검증 성능이 좋은 트리 개수를 최종 트리 개수로 사용한다.
+
+4.baseline code(cross validation oof predictoin) 살펴보기
+//
+
+1.pandas group by 누적합을 이용한 feature engineering
+누적합(cumsum)은 시간 또는 순서에 따라 증가하는 데이터의 총합계를 표시하는 데 사용하는 함수다. Ex)=> total,quantity,price 열에 고객id,상품id,주문id를 기준으로 그룹핑 및 누적합하여 여러개의 로우를 생성하고 집계 함수를 적용해 누적합 피처를 생성.
+
+2.주문, 상품 데이터를 활용한 feature engineering
+Group by nunique aggregation feature generation
+
+3.time series특성을 이용한 feature engineering
+쇼핑데이터는 시계열 데이터다.
+시계열 데이터의 특징 중 하나인 고객의 데이터 간의 발생할 수 있는 시간별 차이에 대해서도 피처 엔지니어링을 할 수 있다.
+생각해보기-> 좋은 피처는 모델이 타겟 변수(레이블)를 예측할 때 무조건 중요한 피처일까?
+
+-피처 중요도와 피처 선택 
+1.피처 중요도란
+타겟 변수를 예측하는 데 얼마나 유용한지에 따라 피처에 점수를 할당해서 중요도를 측정하는 방법. 
+Model-specific vs model agnostic
+Model specific한 방법= 머신러닝 모델 자체에서 피처 중요도 계산이 가능하다면
+Model agnostic한 방법= 모델에서 제공하는 기능에 의존하지 않고 모델을 학습한 후에 적용되는 피처 중요도 계산 방법
+2.boosting tree피처 중요도
+Model specific한 방법중 하나
+Lightgbm 피처 중요도 함수. Training된 lightgbm모델 클래스에 feature_importance (importance_type) 함수로 피처 중요도 계산 기능 제공.
+인자의 importance_type 값에 split 또는 gain. 디폴트는 split
+Split : 트리를 만드는데 feature가 몇번이나 사용되었나. 많이 사용될수록 중요한 feature
+Gain: split 하는데 gain값이 얼마나 나오나
+Xgboost 피처 중요도 함수
+Training된 xgmoost모델 클래스에 get_score(importance_type)함수로 피처 중요도 계산 기능 제공
+Importance_type 디폴트는 weight
+Weight = split이랑 같다고 보면 됨
+Gain = 위에랑 같음
+Cover : the average coverage across all splits the feature is used in
+Total_gain,total_cover : 각각의 합을 계산하는것
+Catboost 피처 중요도 함수
+ get_feature_importance(type)함수로 피처 중요도 계산 기능 제공
+type 디폴트는 FeatureImportance
+FeatureImportance,shapvlaues,interaction,predictiondiff 등이 있다.
+
+3.permutation 피처 중요도
+Model agnostic 한 방법
+피처에 있는 값들을 랜덤하게 섞어 모델의 에러를 측정 ->  중요한 피처면 에러가 커짐, 안중요하면 에러가 안커짐.
+이렇게 피처들을 순회해서 기존과 에러차이가 얼마나 나는지 보고, 에러 차이가 클수록 중요한 피처
+요즘 많이 씀. ㅇㅇ
+4.피처 선택이란
+머신러닝 모델에서 사용할 피처를 선택하는 과정
+머신러닝 모델이 타겟 변수를 예측하는데 유용한 피처와 유용하지 않은 피처를 구분해 유용한 피처를 선택하는 과정.
+피처 선택을 통해 모델의 복잡도를 낮춤으로써 오버피팅 방지 및 모델의 속도 향상 가능
+피처 선택 방법 -> filter method, wrapper method, embedded method
+Filter method = 통계적인 측정 방법을 통해 피쳐들의 상관관계를 알아내는 방식
+피쳐간의 상관계수가 반드시 모델에 적합한 피쳐라고 할 수 없다. 가장 좋은 방법은 아니지만 간단하고 빠름. Wrapper method 하기 전에 전처리로 사용할 수 있다.
+피처들간의 correlation을 계산해서 많이 높으면 같은 피처라 볼 수 있으니 둘 중 하나 제거.
+Variance thres hold 방식 피처에 있는 데이터의 variance(분산)을 계산 -> 작으면 데이터들이 다들 비슷하다-> 중요한 피쳐가 될 가능성이 낮다
+Wrapper method = 예측모델을 사용해 피처의 서브셋을 예측하는 방법. 계속 서브셋을 측정해서 어느 피처가 중요한지 알아냄
+Embedded method = 학습 알고리즘 자체에 피처 셀렉션 기능이 들어가있는것
+5.피처 중요도 코드 실습
+/// 
+하이퍼 파라미터 튜닝
+1.하이퍼 파라미터 튜닝이란
+파라미터 = 모델이 학습과정에서 배워나가는 값
+하이퍼 파라미터 = 학습 이전에 사람이 컨트롤 할 수 있는 값 ex)learning_rate,n_estimators
+하이퍼파라미터 튜닝 = 하이퍼 파라미터를 최적화하는 과정. 모델의 성능을 높이기 위해서는 적절할 하이퍼 파라미터를 찾아야 한다.
+적절한 하이퍼 파라미터 찾는 방법 대표적인 4가지.
+Manual search = 자동화 툴을 사용하지 않고 수동으로 실험할 하이퍼 파라미터 셋을 정하고 하나씩 바꿔가며 테스트해보고 최적화
+Grid search 테스트할 수 있는 모든 경우를 다 테스트 ex)learning rate 4가지, n_estimate 2가지 이면 4*2 = 8가지 경우를 모두 탐색
+Random search = 랜덤하게 하이퍼 파라미터값을 가져와서 테스트하는 방식. 일반적으로 grid보다 성능이 좋음
+Bayesian optimization = 이전에 나온 결과를 기반으로 다음 하이퍼 파라미터의 값을 설정. 이거 많이 씀
+2.boosting tree 하이퍼 파라미터
+Boosting  tree가 가지고 있는 중요한 하이퍼 파라미터에는 learning rate, tree depth, number of leaves, number of tree, early stop, row sampling ratio, column sampling ratio, l1,l2 norm penalty 등이 있다.
+3.optuna
+오픈소스 프레임워크인 optuna를 사용해 튜닝을 할 수 있다.
+최적화된 하이퍼 파라미터를 자동화된 방식으로 찾는 여러가지 방법을 제공
+쉽게 병렬화가 가능해서 대규모 하이퍼 파라미터 탐색도 분산 머신을 통해 시행할 방법을 쉽게 제공.
+기본 개념
+쓸려면 objective 함수를 정의해야함
+trial= optuna에서 제공하는 하이퍼 파라미터 탐색하는 공간을 설정하는 클래스
+storage api를 사용해 하이퍼 파라미터 탐색 결과 저장 가능. Rdb, redis와 같은 persistent 저장소에 하이퍼 파라미터 탐색 결과를 저장함으로써 한번 탐색하고, 다음에 이어서 탐색 가능
+하이퍼 파라미터 중요도 visualization 가능
+하이퍼 파라미터 히스토리 visualization 가능
+하이퍼 파라미터 slice visualization 가능 = 개별 하이퍼 파라미터와 objective value의 관계
+하이퍼 파라미터 contour visualization 가능 여러개 하이퍼 파라미터와 objective value 관계 한번에
+4.하이퍼 파라미터 튜닝 코드 실습
+//
+
+앙상블 /대회의 꽃 앙상블 러닝? / ensemble learning
+1.앙상블 러닝이란
+1.1배경
+1.2앙상블 러닝의 정의
+성능좋은 단일 알고리즘보다 적당한 성능의 알고리즘을 여러개 조합해서 사용하는 기법.
+여러개의 약 분류기(waek calssifier)를 결합하여 강 분류기(string classifier)를 만드는 것
+여러개 단일 모델들의 평균치를 내거나 투표를 해 다수결에 의한 결정을 하는 등 여러 모델들의 집단지성을 활용해 더 나은 결과를 도출해 내는 것에 주 목적이 있음
+Input -> 분류기 1, 2,3,4 ... -> 앙상블 -> 투표or평균
+장점: 성능을 분산시키기 때문에 overfitting 감소 효과,
+개별 모델 성능이 잘 안나올 때 앙상블 학습을 이용하면 성능이 향상될 수 있음
+1.3앙상블 러닝의 기법
+Bagging-boostrap aggregation( 샘플을 다양하게 생성 )
+Boostrap을 통해 모델을 학습시키고 결과를 aggregating. 모두 같은 유형의 알고리즘 기반의 분류기를 사용. 데이터 분산시 중복을 허용-> Overfitting 방지. 대표적으로 radom foresting방식
+Pasting - 훈련세트에서 중복을 허용하지 않고 샘플링하는 방식. 많이는 안씀 보통 bagging씀
+Voting-투표를 통해 결과 도출
+여러개의 분류기가 투표해 최종 예측 결과를 정함
+**bagging은 데이터 샘플에 관한 이야기고 voting은 알고리즘을 선택하는 과정
+Bagging은 데이터를 여러번 샘플링 하는 방식, voting은 여러개 알고리즘을 선택해 voting
+Bagging=> 데이터셋을 배깅 방식으로 여러개 뽑고, 알고리즘은 다 동일한 것을 사용
+Voting=>데이터셋은 그대로, 알고리즘을 다양하게 한 뒤 voting을 통해 최종 예측값 결정
+Hard voting:다수결 원칙. 다수의 분류기가 예측한 값을 최종 값으로 결정. 소수는 무시
+Soft voting:분류기들의  결정확률 평균을 구해 가장 확률이 높은 값을 최종 결과로 선택
+Boosting - 이전 오차를 보완하며 가중치 부여
+여러개의 분류기가 순차적으로 학습. 이전 분류기가 틀린 것에 대해 가중치를 부여해 진행
+예측 성능이 뛰어나 앙상블학습에서 많이 씀. 배깅보다 속도 느림. 오버피팅 발생할 수 있음
+Stacking - 여러 모델을 기반으로 meta 모델
+여러 모델들을 활용해 각각의 예측 결과를 도출한 뒤 그 예측 결과를 결합해 최종 결과를 만드는 것. 모델 2가지 필요. 중간의 baselearner, 이것들의 예측값을 가지고 다시 output을 예측하도록 training하는 모델인 meta모델.
+단일모델보다 성능이 좋음. 오버피팅 조심
+캐글같은 곳에서 시간제한을 두면서 많이 안씀
+2.tree계열 알고리즘 설명
+2.1dicision tree
+터미널 노드가 가장 섞이지 않은 상태로 완전히 분류하는게 목표. 복잡성을 낮도록 만듬. 카트4.5알고리즘을 사용함. Impurity를 측정하는 측도
+Gini index : 높을수록 데이터가 분산되어 있음
+Graphviz : 트리 계열의 모델을 시각화
+2.2gradient boosting
+//pseudo code //어려움
+2.3xgboost
+Gradient boosting의 대표적인 놈.
+Regularization term은 복잡도가 증가할수록 loss에 패널티를 주는 방식으로 overfitting을 막음
+튜닝을 통해 새로운 로스를 만드는 것도 가능-> 유연하게 대처
+2.4lightgbm
+Leaf-wise tree 모델. 대용량 데이터 쉽게 처리 가능.
+Goss: gradient based one side sampling
+Gradient boosting에서는 큰 gradient는 놔두고 작은놈은 랜덤하게 드롭하는 경우가 생김->one side sampling -> 데이터 분포 자체가 외곡될 수 있음
+낮은 gradient 값을 가져와서 버린 샘플만을 뻥튀기 한다. 큰 놈들은 100%취하고, 작은 놈들은 작은 비율만 취하는 방식 
+EFB : exclusive feature bundling
+변수 개수를 줄이기 위해 상호 베타적인 변수들을 묶는 기법
+Ex) 한 컬럼에 100가지 종류 데이터->one hot 인코딩 하면 피처가 100개가 생김->트리모델에서 하나만 값이 있고 나머지는 0인 피처들은 하나로 통합이 가능->계산 아끼기 가능
+피처끼리 완전히 비슷하면 몇개 다른거 무시하고 합쳐버림->계산 아끼기 가능 
+어떤 피처 고를지가 문제 
+2.5catboost
+범주형 데이터가 많은 곳에서 높은 성능
+순서형 원칙 Ordered principle 제시
+기존 = 일괄적으로 모든 훈련 데이터들 대상으로 residual 계산
+Catboost = 일부만 가지고 계산한뒤 이걸로 모델 만들고 그 뒤에 residual은 이 모델이 예측한 값으로
+Random permutaion 데이터 안 섞어주면 위에거 계속 같은 순서만 나옴. 섞어줘야 좋은 성능
+범주형 feature 처리 방법
+Ordered target encoding 
+범주형 변수를 수치형 데이터로 인코딩 시키는 방법중 하나. 
+Categorical feature combinations
+Information gain이 동일 한 경우 두 피처를 하나의 피처로 묶어버림->전처리에서 피처 셀렉트 부담이 줄음
+One hot encoding
+catboost에서는 범주형 데이터에 한해 one hot encoding 자동으로 해주는거 지원
+3.tabnet소개 : 정형데이터 처리를 위한 딥러닝 모델
+.// 좋은거. 어려운거
