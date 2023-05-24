@@ -1,0 +1,45 @@
+deep learning
+
+Loss the loss function is the proxy of what we want to achieve
+-> regression tesk  /MES
+-> classification task  /CE
+-> probabilistic tack   /MLE
+
+historical review
+2012 alexNet => change paradigm
+2013 DQN
+2014 Encoder/Decoder, Adam => Adam optimizer이 일반적으로 잘나옴
+2015 GAN, ResNet
+2017 Transformer
+2018 Bert
+2019 Big Language Models(GPT-X)
+2020 Self-Supervised Learning
+
+Neural Networks are computing systems vaguely inspired by the biological neural networks that constitute animal brains
+하지만 뇌 구조 닮았다고 잘되는건 아니다. 처음에 그렇게 시작했을지 몰라도.
+neural networks are function approximators that stack affine transformations followed by nonlinear transformations.
+이게 더 맞는것 같다.
+
+linear nuearal networks
+we compute the pratial derivatives w.r.t the optimization variables.
+dloss/dw
+then we iteratively update the optimization variables.
+w<-w-n(dloss/dw) //n is stepsize
+b<-b-n(dloss/db)
+of course, we can handle multi dimensional input and output
+y=pow(W,T)*x+b
+what if we stack more
+x --> W1 --> h --> W2 --> y
+y=pow(W2,T)*h = pow(W2,T)*pow(W1,T)*x  // 이러면 매트릭스 하나 곱하는 거랑 다를거 없음
+y=pow(W2,T)*h = pow(W2,T) * p * (pow(W1,T)*x) // p is Nonlinear transform
+
+Activation functions
+-> Rectified Linear Unit(ReLU)
+-> Sigmoid
+-> Hyperbolic Tangent
+
+multi lavyer perceptron
+what about the loss functions?
+-> regression task = MSE = 1/N *(sigma i=1~N)*(sigma d=1~D)*(yi**d - yhati**d)**2
+-> classificatoin task = CE = -1/N * (sigma i=1~N)*(sigma d=1~D) * yi**d * log_yhati**d
+-> probabilistic task (복잡)
