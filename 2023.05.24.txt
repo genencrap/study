@@ -132,7 +132,7 @@ Conclusion
 LoRA models are a great way to add more detail and accuracy to AI-generated images. With just a few simple steps, you can start incorporating these models into your Automatic1111 workflow, giving you access to a whole new world of possibilities for your projects. We recommend keeping an eye out for the latest releases, as there are always new and interesting models being added to the platform. Happy creating!
 
 One More Thing
-We’re glad you’ve read this article. :) Thank you for reading.
+We’re glad you’ve read this article. Thank you for reading.
 
 If you have a second, please share this article on your socials; someone else may benefit too. 
 
