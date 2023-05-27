@@ -1,0 +1,15 @@
+parameter norm penalty
+ it adds smoothness to the function space.
+ total cost = loss(D;W) + a/2||W||22
+ data augmentation
+  more data are always welcomed
+  however in most cases, training data are given in advance
+  in such cases we need data augmentation
+ noise robustness
+  add random noise inputs or weights
+ label smoothing
+  mix up constructs augmented training examples by mixing both input and output of two randomly selected training data
+  cutmix constructs augmented training examples by mixing inputs with cut and
+   paste and outputs with soft labels if two tandomly selected training data.
+ batch normalization
+  compute the empirical mean and variance independently for each dimension(layers) and normalize
