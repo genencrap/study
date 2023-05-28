@@ -1,0 +1,14 @@
+convolution
+ continuous convolution
+ discrete convolution
+ 2d image convolution
+ 
+ k(3*3 filter) * i(7*7 image) = output(5*5)
+                   -> tensor
+32*32*3 -> conv(4 5*5*3 filters), ReLU -> 28*28*4 -> conv(10 5*5*4 filter), ReLU -> 24*24*10 -> 
+
+convolutional neral networks
+cnn consists of convolution layer, pooling layer, and fully connected layer.
+convolution and pooling layers: feature extraction
+full connected layer:decision making (e.g classification)
+
