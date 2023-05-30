@@ -1,0 +1,33 @@
+c++ sfml 효과음 플레이 
+
+sf::SoundBuffer buffer;
+
+buff.loadFromFile("images\\start.wav");
+
+sf::Sound sound(buffer)
+
+sound.play();   //오디오 재생
+
+sound.setPlayingOffset(sf:seconds(2.f)); //2초부터 재생
+
+sound.pause(); //재생 일시 멈춤
+
+sound.play();   //플레이
+
+sound.stop();   //재생 정지
+
+ loadFromFile 은 사운드를 버퍼로 로
+ 
+ ////////////////////////////
+ 
+ 
+sf::Music music; 
+
+if (!music.openFromFile("music.ogg")) 
+    return -1; // error 
+
+music.play(); 
+
+sound와 다르게 music은 파일을 버퍼에 로드하지 데이터를 스트리밍한다.
+roadfromfile이 아니라 oepnfromfile이다.
+** music은 복사할 수 없다. 레퍼런스로 인자를 받아야 함
