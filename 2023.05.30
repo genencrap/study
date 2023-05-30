@@ -16,7 +16,7 @@ sound.play();   //플레이
 
 sound.stop();   //재생 정지
 
- loadFromFile 은 사운드를 버퍼로 로
+ loadFromFile 은 사운드를 버퍼로 로딩한다. 
  
  ////////////////////////////
  
