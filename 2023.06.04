@@ -1,0 +1,9 @@
+git 커밋 취소방법
+1. git reset HEAD^ 후 커밋, 강제 푸쉬
+ 단점 : 뒤로간 만큼 커밋이 삭제됨
+ 
+2. git revert hashcode 후 커밋, 푸쉬
+ 뒤로간것도 커밋으로 기록됨
+ 
+git reflog
+변경사항 보기
