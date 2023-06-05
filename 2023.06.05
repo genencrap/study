@@ -1,0 +1,9 @@
+differential linear homogeneous system
+d/dx + a(x) + C = 0
+...
+b = 0 이 아니면 그냥 differential linear system
+
+푸는 방법
+1. inital condition 으로 c 구함
+2. differential equation 구함
+3. 풀기
