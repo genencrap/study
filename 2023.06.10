@@ -1,0 +1,16 @@
+counter
+
+동기 vs 비동기
+동기: 같은 clock으로 동시에 작동
+비동기 : 이전 ff의 결과가 clock으로 작용 ( ripple counter)
+
+업 카운터 vs 다운 카운터
+업 : 0부터 올라감
+다운 : 15부터 내려감
+
+4 bit 동기식 counter 설계
+현재상태 -> jkff -> kmap -> 회로도 -> 설계
+
+4bit 업 다운 카운터
+up = 1이면 down 상관없음 => 중간 and 무시
+up=0,down=1 이면 왼쪽 and 무시
