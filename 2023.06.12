@@ -1,0 +1,27 @@
+ 레지스터 : 플립 플롭 저장용으로 모아논거
+ 카운터 : 레지스터의 특전 종류. 카운팅 용
+ 
+ 레지스터
+  d ff 레지
+  jk ff 레지
+ 전송
+  직렬
+   d ㅡd ㅡd ...
+   오른쪽으로 계속 밈
+   shift
+     |-------------|
+     right shift ---- rightshift
+     clk
+     
+   4 bit shift
+   input : clk, s0, s1, clear, msb data, lsb data, input data
+   output : 다음 자리수
+   
+   
+ 카운터
+  동기 vs 비동기
+  업 vs 다운
+  이진 vs bcd
+  
+  4bit 동기식 업다운 카운터
+  4bit 
