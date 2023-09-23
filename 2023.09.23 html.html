@@ -1,0 +1,217 @@
+<!--html-css5-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>title = 페이지 창 이름, head에만</title>
+        <base href="base가 되는 url">
+        <a href="base 밑에 있는 소스들">a=하이퍼링크</a>
+        <link type="text/css" rel="stylesheet" herf="여기에 저장된 스타일시트 부르는코드.css">
+        link 태그는 외부 자원 연결에 사용<br>
+        <meta name="author" content="저작자 이름">
+        <meta charset="UTF-8">
+        meta 태그는 웹 페이지 저작자, 문자 인코딩 방식 등 다양한 메타 데이터 표현<br>
+        <style>
+            table{
+                border:2px solid black;
+                border-collapse:collapse;
+            }
+            td{
+                width: 50px; text-align:center;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="src.jpg">
+        img = 태그 이름<br>
+        src = 속성 이름<br>
+        "src.jpg" = 속성 값<br>
+        태그와 속성 = 대소문자 구분 없음<br>
+        <br>
+        <h1 title="툴팁 = 마우스 올라갈때 설명 출력">문장 제목 h=heading</h1>
+        모든 태그는 title 속성 가짐<br>
+        <p>p= 단락 나누기 , paragraph <br> 끝나면 자동으로 빈줄 생김</p>
+        <hr>
+        horizontal, 수평선 긋기 =  &lt;/hr&gt; (&lt; 괄호 표현을 위한 엔터티 표현)<br>
+        html5 = 유니코드 문자셋, UTF-8 코드 체계<br>
+        &lt;, &sum;, &copy;, &divide;, &quot; <br>
+        <pre>
+            &lt;pre&gt; 태그는 개발자 포멧 그대로 출력하는 태그
+            엔터도 그대로 
+            반영됨
+        </pre>
+        <hr>
+        태그 = 블록(block)태그와 인라인(inline)태그로 구분<br>
+        블록 = 새 라인에서 시작, 한 라인 독점 ex div <br>
+        인라인 = 블록 속에 삽입됨 ex span <br>
+        <div style="background-color: skyblue; padding:20px;"">
+            특별한 의미 없이 여러 태그들을 블록으로 묶는 컨테이너
+            <span>span = 특별한 모양을 주거나,js로 텍스트 일부 제어할때 사용</span>
+        </div>
+        <hr>
+        메타 데이터를 담기 위한 태그들 = base, link, style 등<br>
+        메타 태그들은 head 태그 안에 작성!<br>
+        script 는 body 내에도 작성 가능<br>
+        <img src="주소" width="100" height="200" alt="대체글씨"><br>
+        리스트 세가지<br>
+        순서 있는 리스트 = ol <ol type="A"><li>1</li></ol>
+        순서 없는 리스트 = ul <ul></ul>
+        정의 리스트 = dl <dl>
+            <dt>용어 이름
+            <dd>이 용어에 대한 설명
+        </dl>
+        리스트 속 아이템 = li<br>
+
+        <hr>
+        표 만들기
+        table = 표 전체를 담는 컨테이너<br>
+        caption = 표 제목, 반드시 첫번째로 삽입<br>
+        thead = 헤딩 셀 그룹<br>
+        tfoot = 바닥 셀 그룹, 보통 body 위에 씀<br>
+        tbody = 데이터 셀 그룹<br>
+        th = 열 제목 셀<br>
+        hr = 행<br>
+        td = 데이터 셀
+        <table>
+            <thead>
+                <tr><th>name</th><th>html</th><th>css</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>myname</td><td>80</td><td>70</td></tr>
+            </tbody>
+        </table>
+
+        <table border="1"><!--굵기는 css로 하는게 좋음-->
+            <caption>이건 비정형 표</caption>
+            <tr><td rowspan="3">A</td><td colspan="2">B</td></tr>
+            <tr><td rowspan="2">C</td><td>D</td></tr>
+            <tr><td>E</td></tr>
+        </table>
+        <hr>
+        하이퍼링크는 a태그의 href속성으로<br>
+        hyper reference의 약자<br>
+        항해 혹은 내비게이션 = 하이퍼링크를 따라 다른 웹 페이지를 방문하는것<br>
+        <a href="url , #앵커 이름"
+        target="연결된 페이지가 출력될 윈도우 이름"> 텍스트 or 이미지</a><br>
+        targe = _blank , _self, _parent, _top ...<br>
+        앵커 = html 페이지 내 문서의 특정 위치 <br>
+        <a id="앵커 이름">앵커</a><br>
+        <a href="#앵커이름">앵커로 연결되는 하이퍼링크</a>
+        파일 다운로드 링크 만들기 = a의 download 속성<br>
+        <a href="어딘가 링크" download>클릭</a><br>
+        <hr>
+        인라인 프레임 만들기 iframe<br>
+        html 페이지 내에 html페이지 삽입<br>
+        <iframe src="소스 이름" srcdoc=" <html> <body>내용zz</body></html>" name="윈도우 이름"width="200" height="200">
+            iframe태그를 다루지 않는 브라우저는 대체 출력 태그
+        </iframe><br>
+        iframe 태그는 body 태그 안에서만<br>
+        src 속성 생략되면 빈 영역이 만들어짐<br>
+        srcdoc = 인라인 프레임에 출력할 텍스트 직접 작성, src태그 무시됨<br>
+        인라인 안에 또 인라인 가능<br>
+        <hr>
+        브라우저 윈도우와 인라인 프레임의 계층관계<br>
+        - 부모 자식 관계 ,parent 윈도우, child 윈도우<br>
+        top 윈도우 = 최상위 브라우저 윈도우<br>
+        target 속성으로 출력할 윈도우 지정( base, a 등에서)<br>
+        _blank = 새로운 브라우저 탭 생성<br>
+        _self = 형재 윈도우<br>
+        _parent = 부모 윈도우<br> 
+        <hr>
+        html5에서 미디어 삽입 표준화 되서 audio, video 같은 태그 가능-플러그인 필요 없음<br>
+        <video src="비디오" controls autoplay>지원 안할때 글</video>
+        모바일 브라우저에서는 보안상 이유로 audio 의 autoplay속성 안됨<br>
+        <hr>
+        <hr>
+        html5의 한계<br>
+        소스코드 보면서 문서 구조 파악 불가능 -> 구조를 표현하는 태그 없<br>
+        있으면 좋은점= 검색할때 좋음=많은 사람들이 볼 수 있음<br>
+        시멘틱 웹 = 웹 문서를 구조화하여 의미 있는 내용 탐색이 용이한 웹<br>
+        시맨틱 태그 = 문서의 구조, 의미를 전달하는 태그<br>
+        header, section, article, main, summary ...<br>
+        header = 페이지나 섹션의 머리말, 제목, 소개<br>
+        nav = 하이퍼링크 모아놓은곳, 목차<br>
+        section = 문서 내용<br>
+        article = 본문과 연관 있지만, 독립적인 콘텐츠<br>
+        시멘트 태그는 위치, 색, 모양등을 결정하지 않음=css써라<br>
+        <hr>
+        문서 구조화<br>
+        웹 페이지 전체를 구조화 시맨틱 태그로 분할<br>
+        웹페이지 제목, 소개는 header, 본문은 section, 본문 내 각 절이나 영영은 article<br>
+        링크나 메뉴들은 nav 태그로, 배경음악은 header에<br>
+        <hr>
+        시맨틱 블록 태그<br>
+        figure = 사진, 삽화, 소스코드 등은 통상적으로 '그림'으로 표현<br>
+        details = 상세 정보를 담는 시맨틱 블록 태그<br>
+        summary = details로 구성되는 블록의 제목 표현<br>
+        시맨틱 인라인 태그<br>
+        mark = 중요한 텍스트임을 표시<br>
+        time = 텍스트의 내용이 시간임을 표시<br>
+        meter = 주어진 범위나 %의 데이터량 표시<br>
+        progress = 작업의 진행도 표시<br>
+        <figure id="figure 1-1">
+            <figcaption>figure 제목</figcaption>
+            내용<br>
+
+        </figure>
+        <details>
+            <summary>첫번째</summary>
+            <p>내용 <mark>마크한 내용</mark></p>
+            난이도 <meter value="0.8" max="1.0">80%</meter><br>
+        </details>
+        <br>
+        html5에서 제거된 태그들도 있음 - big, center, dir 등<br>
+        <hr>
+        웹 폼 = 사용자에게 입력받는 폼<br>
+        <form name="fo" method="get">
+            사용자 id : <input type="text" size="15" value=""><br>
+        </form>
+        폼(form)태그로 둘러싸는 모양<br>
+        name = 폼의 이름<br>
+        action = 폼 데이터 처리할 웹 서버 응용프로그램 이름<br>
+        submit버튼 눌리면 브라우저는 action에 지정된 웹 서버 응용프로그램 실행 요청<br>
+        method = 폼 데이터를 웹 서버로 전송하는 방식 get, post<br>
+        ex_네이버 검색<br>
+        1.사이트 접속 - 입력창에 검색어 검색하고 '검색' 누르면 브라우저는<br>
+        form태그의 action="주소"를 참고, 네이버 서버에 접속해 응용프로그램 실행 요구<br>
+        2.입력창에 검색어 입력하고 검색 누르면 웹 서버 응용프로그램에 보낼 폼 데이터 생성<br>
+        https://search.naver.com/search.naver?where=nexearch&querty="검색어".....<br>
+        3.브라우저는 search.naver.com에 접속, search.naver실행 요청. query=검색어 전달<br>
+        4.응용프로그램이 실행, 검색결과를 브라우저에 보냄<br>
+        5.브라우저는 검색 결과를 화면에 출력<br>
+        <hr>
+        input type="text" =한줄짜리 입력 창<br>
+        input type="password" = 암호 입력창(*로 표시)<br>
+        textarea = 여러 줄 입력 창<br>
+        데이터 목록을 가진 텍스트 입력창 datalist<br>
+        목록 리스트 작성하는 태그, option 태그로 항목 하나 표현<br>
+        나라 :<input type="text" list="countries">       
+        <datalist id="countries">
+            <option value="나라1">
+            <option value="나라2">
+        </datalist>
+        버튼만들기 <button type="submit">전송1</button><br>
+        체크박스 <input type="checkbox" name="1123"> , <input type="radio" checked name="1123"><input type="radio" name="1123"><br>
+        같은 이름을 가진 라디오 버튼 중 하나만 선택 가능<br>
+        콤보박스 만들기 <select name="1112">
+            <option value="1">fir</option>
+            <option value="2" selected>sec</option>
+        </select>
+        label로 폼 요소의 캡션 만들기, 캡션=텍스트창 앞에 있는 글씨<br>
+        <label>사용자 id:<input type="text"></label><br>
+        <label for="loginid">사용자 id</label>
+        <input type="text" id="loginid"><br>
+        <label>나나나<input type="radio" value="1"></label><br>
+        라벨로 감싸면 이름, 이미지를 선택해도 선택한 것으로 처리<br>
+        <hr>
+        
+
+
+
+
+        
+
+
+
+
+    </body>
+</html>
